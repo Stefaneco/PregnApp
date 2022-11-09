@@ -1,5 +1,6 @@
 package com.example.pregnapp.auth.login
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +34,15 @@ fun LoginScreen(
 
     when(val state = viewModel.uiState.collectAsState().value){
         is AuthScreenState.Success -> {
+            Log.e("LoginScreen.kt", "AuthScreenState.Success")
+            if (!viewModel.isNavigatedOut){
+                navController.navigate("profile") {
+                    popUpTo("login"){
+                        inclusive = true
+                    }
+                }
+                viewModel.isNavigatedOut = true
+            }
 
         }
         is AuthScreenState.Error -> {
@@ -78,12 +88,6 @@ fun LoginScreen(
             Modifier
                 .padding(5.dp)
                 .clickable { if (!loading) navController.navigate("register") }
-        )
-        Text(
-            text = stringResource(id = R.string.forgot_password),
-            Modifier
-                .padding(5.dp)
-                .clickable { if (!loading) navController.navigate("forgotPassword") }
         )
     }
 }

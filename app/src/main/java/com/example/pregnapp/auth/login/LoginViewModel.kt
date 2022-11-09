@@ -21,6 +21,7 @@ class LoginViewModel @Inject constructor(
 {
     private val _uiState = MutableStateFlow<AuthScreenState>(AuthScreenState.Static)
     val uiState: StateFlow<AuthScreenState> = _uiState
+    var isNavigatedOut = false
 
     fun logIn(email: String, password: String){
         if(!isValidEmail(email) || !isValidPassword(password)) return

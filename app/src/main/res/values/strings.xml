@@ -4,7 +4,7 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="password">Password</string>
-    <string name="forgot_password">Password</string>
+    <string name="forgot_password">Forgot password</string>
     <string name="incorrect_email">Incorrect Email format!</string>
     <string name="incorrect_password">Incorrect Password format!</string>
 </resources>

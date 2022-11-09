@@ -1,6 +1,7 @@
 package com.example.pregnapp.auth.splash
 
 import android.app.Activity
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,7 +32,12 @@ fun SplashScreen(
 
     when(val state = viewModel.uiState.collectAsState().value){
         is SplashScreenState.Success -> {
-
+            Log.e("SplashScreen.kt", "SplashScreenState.Success")
+            navController.navigate("profile") {
+                popUpTo("splash"){
+                    inclusive = true
+                }
+            }
         }
         is SplashScreenState.NoSession -> {
             navController.navigate("login") {

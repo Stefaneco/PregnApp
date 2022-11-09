@@ -1,5 +1,6 @@
 package com.example.pregnapp.auth.interactors
 
+import android.util.Log
 import com.example.pregnapp.auth.IAccountService
 import com.example.pregnapp.auth.models.LoginRequest
 import com.example.pregnapp.network.ISessionSource
@@ -16,6 +17,7 @@ class Login(
         emit(RequestState.loading())
         try{
             val sessionData = accountService.login(loginRequest)
+            Log.e("Login.kt", "Login.kt: $sessionData")
             sessionSource.updateSessionData(sessionData)
             emit(RequestState.data())
         } catch (e: Exception){

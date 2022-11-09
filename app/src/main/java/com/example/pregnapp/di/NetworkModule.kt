@@ -10,6 +10,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.*
+import io.ktor.client.engine.cio.*
 import javax.inject.Singleton
 
 
@@ -32,7 +33,8 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideHttpClient(sessionSource: ISessionSource, httpRoutes: IHttpRoutes): HttpClient {
-        return KtorClientFactory(sessionSource, httpRoutes).build()
+        return KtorClientFactory(sessionSource, httpRoutes, MockApiEngine.create()).build()
+        //return KtorClientFactory(sessionSource, httpRoutes, CIO.create()).build()
     }
 
     @Singleton

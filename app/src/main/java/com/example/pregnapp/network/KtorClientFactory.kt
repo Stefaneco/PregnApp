@@ -2,6 +2,7 @@ package com.example.pregnapp.network
 
 import io.ktor.client.*
 import io.ktor.client.call.*
+import io.ktor.client.engine.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
@@ -13,10 +14,11 @@ import kotlinx.serialization.json.Json
 
 class KtorClientFactory(
     private val sessionSource: ISessionSource,
-    private val httpRoutes: IHttpRoutes
+    private val httpRoutes: IHttpRoutes,
+    private val engine: HttpClientEngine
 ) {
     fun build(): HttpClient {
-        val tokenClient = HttpClient(CIO){
+        val tokenClient = HttpClient(engine){
             install(ContentNegotiation){
                 json(Json {
                     prettyPrint = true
@@ -26,7 +28,7 @@ class KtorClientFactory(
             }
         }
 
-        val client = HttpClient(CIO){
+        val client = HttpClient(engine){
             install(ContentNegotiation){
                 json(Json {
                     prettyPrint = true
