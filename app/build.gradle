@@ -20,7 +20,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.pregnapp.di.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -54,9 +55,19 @@ android {
 
 dependencies {
 
+    //TESTS
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    androidTestImplementation 'junit:junit:4.13.2'
+    testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kaptTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    androidTestImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+
     //HILT
     implementation "com.google.dagger:hilt-android:$hilt_version"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+    testImplementation 'org.junit.jupiter:junit-jupiter'
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     //NAVIGATION
@@ -73,9 +84,6 @@ dependencies {
 
     //EXTRA ICONS
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
-
-    //SOMEHOW DOESN'T WORK WITHOUT THOSE XD
-    //implementation "androidx.compose.compiler:compiler:$compose_version"
 
     //BASIC
     implementation 'androidx.core:core-ktx:1.9.0'

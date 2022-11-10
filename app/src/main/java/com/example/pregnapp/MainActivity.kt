@@ -8,7 +8,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.pregnapp.auth.login.LoginScreen
 import com.example.pregnapp.auth.splash.SplashScreen
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.pregnapp.auth.register.RegisterScreen
 import com.example.pregnapp.profile.ProfileScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,14 +21,12 @@ class MainActivity : ComponentActivity() {
             NavHost(navController = navController, startDestination = "splash"){
                 composable("splash"){
                     SplashScreen(
-                        viewModel = hiltViewModel(),
                         navController = navController
                     )
                 }
 
                 composable("login"){
                     LoginScreen(
-                        viewModel = hiltViewModel(),
                         navController = navController
                     )
                 }

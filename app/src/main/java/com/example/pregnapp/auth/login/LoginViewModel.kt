@@ -1,7 +1,6 @@
 package com.example.pregnapp.auth.login
 
 import android.util.Log
-import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pregnapp.auth.AuthScreenState
@@ -35,13 +34,9 @@ class LoginViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun isValidEmail(email: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
+    fun isValidEmail(email: String) = authInteractors.isValidEmail(email)
 
-    fun isValidPassword(password: String): Boolean {
-        return password.isNotEmpty()
-    }
+    fun isValidPassword(password: String) = authInteractors.isValidPassword(password)
 
     fun errorDisplayed(){
         _uiState.value = AuthScreenState.Static

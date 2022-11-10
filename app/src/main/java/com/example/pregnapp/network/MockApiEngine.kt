@@ -10,6 +10,16 @@ object MockApiEngine {
 
     fun create() = engine
 
+    private var isSuccess = true
+
+    fun givenFailure(){
+        isSuccess = false
+    }
+
+    fun givenSuccess(){
+        isSuccess = true
+    }
+
     private val engine = MockEngine {
 
         request ->

@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.pregnapp.auth.AuthScreenState
 import com.example.pregnapp.ui.components.LoadingDotsAnimation
@@ -24,7 +25,7 @@ import com.example.pregnapp.R
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel,
+    viewModel: LoginViewModel = hiltViewModel(),
     navController: NavController
 ) {
     var email by remember{ mutableStateOf("") }
