@@ -2,7 +2,7 @@ package com.example.pregnapp.di
 
 import com.example.pregnapp.auth.IAccountService
 import com.example.pregnapp.auth.interactors.*
-import com.example.pregnapp.network.ISessionSource
+import com.example.pregnapp.auth.models.ISessionSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

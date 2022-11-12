@@ -15,10 +15,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.example.pregnapp.ui.Tags
+import com.example.pregnapp.R
 
 @Composable
 fun ValidatedPasswordTextField(
@@ -49,8 +53,9 @@ fun ValidatedPasswordTextField(
                         wasFiledClickedOut = true
                         displayError = !isFieldValid(fieldValue)
                     }
-
-                },
+                }
+                .testTag(if (passwordVisible) Tags.TAG_PASSWORD_VISIBLE else Tags.TAG_PASSWORD_HIDDEN)
+            ,
             value = fieldValue,
             label = { Text(text = hint) },
             onValueChange = {
@@ -67,9 +72,13 @@ fun ValidatedPasswordTextField(
                     Icons.Filled.Visibility
                 else Icons.Filled.VisibilityOff
 
-                val description = if (passwordVisible) "Hide password" else "Show password"
+                val description = if (passwordVisible) stringResource(id = R.string.hide_password)
+                else stringResource(id = R.string.show_password)
 
-                IconButton(onClick = {passwordVisible = !passwordVisible}){
+                IconButton(
+                    modifier = Modifier.testTag(if (passwordVisible) Tags.TAG_PASSWORD_VISIBLE_ICON
+                    else Tags.TAG_PASSWORD_HIDDEN_ICON),
+                    onClick = {passwordVisible = !passwordVisible}){
                     Icon(imageVector  = image, description)
                 }
             }

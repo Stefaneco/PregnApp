@@ -1,9 +1,10 @@
 package com.example.pregnapp.network
 
+import com.example.pregnapp.auth.models.ISessionSource
+import com.example.pregnapp.auth.models.SessionData
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.*
-import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.plugins.contentnegotiation.*

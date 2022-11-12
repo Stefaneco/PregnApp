@@ -1,10 +1,13 @@
 package com.example.pregnapp.auth.interactors
 
-import android.util.Log
 import com.example.pregnapp.auth.IAccountService
+import com.example.pregnapp.auth.models.ISessionSource
 import com.example.pregnapp.auth.models.LoginRequest
-import com.example.pregnapp.network.ISessionSource
+import com.example.pregnapp.exceptions.BadRequestException
+import com.example.pregnapp.exceptions.InternalServerErrorException
 import com.example.pregnapp.network.RequestState
+import io.ktor.client.call.*
+import io.ktor.http.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -16,9 +19,10 @@ class Login(
 
         emit(RequestState.loading())
         try{
-            val sessionData = accountService.login(loginRequest)
-            Log.e("Login.kt", "Login.kt: $sessionData")
-            sessionSource.updateSessionData(sessionData)
+            val loginResponse = accountService.login(loginRequest)
+            if(loginResponse.status == HttpStatusCode.BadRequest) throw BadRequestException()
+            if(loginResponse.status == HttpStatusCode.InternalServerError) throw InternalServerErrorException()
+            sessionSource.updateSessionData(loginResponse.body())
             emit(RequestState.data())
         } catch (e: Exception){
             emit(RequestState.error(e.message ?: "Unknown Error"))

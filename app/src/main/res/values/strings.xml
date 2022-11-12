@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PregnApp</string>
+
+    <!--AUTH-->
     <string name="email">Email</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
@@ -7,4 +9,10 @@
     <string name="forgot_password">Forgot password</string>
     <string name="incorrect_email">Incorrect Email format!</string>
     <string name="incorrect_password">Incorrect Password format!</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
+
+    <!--ERROR-->
+    <string name="bad_request">Bad Request</string>
+    <string name="internal_server_error">Internal Server Error</string>
 </resources>

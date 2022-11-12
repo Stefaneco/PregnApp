@@ -1,4 +1,4 @@
-package com.example.pregnapp.network
+package com.example.pregnapp.auth.models
 
 import android.content.Context
 import com.example.pregnapp.exceptions.NoSessionException
