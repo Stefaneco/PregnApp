@@ -11,7 +11,8 @@
     <string name="incorrect_password">Incorrect Password format!</string>
     <string name="hide_password">Hide password</string>
     <string name="show_password">Show password</string>
-
+    <string name="name">Name</string>
+    <string name="incorrect_name">Incorrect name format!</string>
     <!--ERROR-->
     <string name="bad_request">Bad Request</string>
     <string name="internal_server_error">Internal Server Error</string>

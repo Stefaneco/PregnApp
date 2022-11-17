@@ -19,7 +19,7 @@ class IsValidPasswordTest {
     }
 
     @Test
-    fun passwordAboveOrEqual8Characters_returnsTrue(){
+    fun passwordBetween8To50Characters_returnsTrue(){
         assertEquals(true, isValidPassword("12345678"))
     }
 

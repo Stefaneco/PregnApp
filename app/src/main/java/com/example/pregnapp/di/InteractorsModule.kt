@@ -24,7 +24,9 @@ class InteractorsModule {
             GetSessionFromDevice(sessionSource),
             Login(accountService, sessionSource),
             IsValidEmail(),
-            IsValidPassword()
+            IsValidPassword(),
+            IsValidName(),
+            Register(accountService, sessionSource)
         )
     }
 }

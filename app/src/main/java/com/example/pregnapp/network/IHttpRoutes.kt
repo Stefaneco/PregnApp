@@ -6,4 +6,5 @@ interface IHttpRoutes {
 
     fun refresh(): String
 
+    fun register(): String
 }

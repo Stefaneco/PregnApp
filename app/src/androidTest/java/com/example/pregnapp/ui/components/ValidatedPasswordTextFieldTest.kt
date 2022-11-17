@@ -1,11 +1,9 @@
 package com.example.pregnapp.ui.components
 
 import android.content.res.Resources
+import androidx.compose.material.TextField
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performTextInput
 import androidx.test.platform.app.InstrumentationRegistry
 import com.example.pregnapp.R
 import com.example.pregnapp.ui.Tags
@@ -24,6 +22,7 @@ class ValidatedPasswordTextFieldTest {
     fun setUp(){
         composeRule.setContent{
             ValidatedPasswordTextField(hint = "Password", isFieldValid = { true }, errorMessage = "Error")
+            TextField(value = "TEST", onValueChange = {})
         }
     }
 

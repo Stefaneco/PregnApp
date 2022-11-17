@@ -32,6 +32,7 @@ object MockApiEngine {
         return when(request.url.encodedPath){
             "/api/account/login" -> respond(mockTokenResponse, HttpStatusCode.OK, responseHeaders)
             "/api/account/refresh" -> respond(mockTokenResponse, HttpStatusCode.OK, responseHeaders)
+            "/api/account/register" -> respond(mockTokenResponse, HttpStatusCode.OK, responseHeaders)
             else -> {
                 Log.e("MockApiEngine.kt", request.url.encodedPath)
                 error("Unhandled ${request.url.encodedPath}")

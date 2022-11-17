@@ -10,6 +10,7 @@ import com.example.pregnapp.auth.login.LoginScreen
 import com.example.pregnapp.auth.splash.SplashScreen
 import com.example.pregnapp.auth.register.RegisterScreen
 import com.example.pregnapp.profile.ProfileScreen
+import com.example.pregnapp.util.NavigationRoutes
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,23 +19,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "splash"){
-                composable("splash"){
+            NavHost(navController = navController, startDestination = NavigationRoutes.SPLASH){
+                composable(NavigationRoutes.SPLASH){
                     SplashScreen(
                         navController = navController
                     )
                 }
 
-                composable("login"){
+                composable(NavigationRoutes.LOGIN){
                     LoginScreen(
                         navController = navController
                     )
                 }
 
-                composable("register"){
-                    RegisterScreen()
+                composable(NavigationRoutes.REGISTER){
+                    RegisterScreen(
+                        navController = navController
+                    )
                 }
-                composable("profile"){
+
+                composable(NavigationRoutes.PROFILE){
                     ProfileScreen()
                 }
             }

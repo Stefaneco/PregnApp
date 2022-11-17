@@ -1,6 +1,5 @@
 package com.example.pregnapp.auth.login
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,11 +16,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.pregnapp.R
 import com.example.pregnapp.auth.AuthScreenState
 import com.example.pregnapp.ui.components.LoadingDotsAnimation
 import com.example.pregnapp.ui.components.ValidatedPasswordTextField
 import com.example.pregnapp.ui.components.ValidatedTextField
-import com.example.pregnapp.R
+import com.example.pregnapp.util.NavigationRoutes
+import com.example.pregnapp.util.ToastManager
 
 @Composable
 fun LoginScreen(
@@ -35,10 +36,9 @@ fun LoginScreen(
 
     when(val state = viewModel.uiState.collectAsState().value){
         is AuthScreenState.Success -> {
-            Log.e("LoginScreen.kt", "AuthScreenState.Success")
             if (!viewModel.isNavigatedOut){
-                navController.navigate("profile") {
-                    popUpTo("login"){
+                navController.navigate(NavigationRoutes.PROFILE) {
+                    popUpTo(NavigationRoutes.LOGIN){
                         inclusive = true
                     }
                 }
@@ -47,7 +47,7 @@ fun LoginScreen(
 
         }
         is AuthScreenState.Error -> {
-            Toast.makeText(context, state.message, Toast.LENGTH_LONG).show()
+            ToastManager.makeText(context, state.message, Toast.LENGTH_LONG).show()
             viewModel.errorDisplayed()
         }
         is AuthScreenState.Loading -> loading = true
@@ -88,7 +88,7 @@ fun LoginScreen(
             text = stringResource(id = R.string.register),
             Modifier
                 .padding(5.dp)
-                .clickable { if (!loading) navController.navigate("register") }
+                .clickable { if (!loading) navController.navigate(NavigationRoutes.REGISTER) }
         )
     }
 }
