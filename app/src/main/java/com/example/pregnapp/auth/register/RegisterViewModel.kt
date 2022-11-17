@@ -20,6 +20,7 @@ class RegisterViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow<AuthScreenState>(AuthScreenState.Static)
     val uiState: StateFlow<AuthScreenState> = _uiState
+    var isNavigatedOut = false
 
     fun register(name: String, email: String, password: String){
         if (isValidRegistration(name, email, password)){

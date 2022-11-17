@@ -37,7 +37,16 @@ fun RegisterScreen(
     val snackbarHostState = SnackbarHostState()
 
     when(val state = viewModel.uiState.collectAsState().value){
-        is AuthScreenState.Success -> { navController.navigate(NavigationRoutes.PROFILE)}
+        is AuthScreenState.Success -> {
+            if (!viewModel.isNavigatedOut){
+                viewModel.isNavigatedOut = true
+                navController.navigate(NavigationRoutes.PROFILE){
+                    popUpTo(NavigationRoutes.REGISTER){
+                        inclusive = true
+                    }
+                }
+            }
+        }
         is AuthScreenState.Error -> {
             LaunchedEffect(snackbarHostState){
                 snackbarHostState.showSnackbar(
