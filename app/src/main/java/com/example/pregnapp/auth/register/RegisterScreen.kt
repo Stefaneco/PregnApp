@@ -1,6 +1,5 @@
 package com.example.pregnapp.auth.register
 
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,11 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,7 +24,6 @@ import com.example.pregnapp.ui.components.LoadingDotsAnimation
 import com.example.pregnapp.ui.components.ValidatedPasswordTextField
 import com.example.pregnapp.ui.components.ValidatedTextField
 import com.example.pregnapp.util.NavigationRoutes
-import com.example.pregnapp.util.ToastManager
 
 @Composable
 fun RegisterScreen(
@@ -34,14 +33,17 @@ fun RegisterScreen(
     var email by remember{ mutableStateOf("") }
     var password by remember{ mutableStateOf("") }
     var name by remember{ mutableStateOf("") }
-    val context = LocalContext.current
     var loading = false
+    val snackbarHostState = SnackbarHostState()
 
     when(val state = viewModel.uiState.collectAsState().value){
         is AuthScreenState.Success -> { navController.navigate(NavigationRoutes.PROFILE)}
         is AuthScreenState.Error -> {
-            ToastManager.makeText(context, state.message, Toast.LENGTH_LONG).show()
-            viewModel.errorDisplayed()
+            LaunchedEffect(snackbarHostState){
+                snackbarHostState.showSnackbar(
+                    message = state.message
+                )
+            }
         }
         is AuthScreenState.Loading -> loading = true
         else -> {}
@@ -89,5 +91,13 @@ fun RegisterScreen(
                 .padding(5.dp)
                 .clickable { if (!loading) navController.navigate(NavigationRoutes.LOGIN) }
         )
+    }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        SnackbarHost(
+            hostState = snackbarHostState)
     }
 }

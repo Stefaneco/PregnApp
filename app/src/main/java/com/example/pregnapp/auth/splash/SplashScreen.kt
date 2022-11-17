@@ -1,11 +1,13 @@
 package com.example.pregnapp.auth.splash
 
 import android.app.Activity
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +24,7 @@ fun SplashScreen(
     navController: NavController
 ) {
     val context = LocalContext.current
+    val snackbarHostState = SnackbarHostState()
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -47,9 +50,22 @@ fun SplashScreen(
             }
         }
         is SplashScreenState.Error -> {
-            Toast.makeText(context, state.message, Toast.LENGTH_LONG).show()
+            LaunchedEffect(snackbarHostState){
+                snackbarHostState.showSnackbar(
+                    message = state.message
+                )
+            }
             (context as? Activity)?.finish()
         }
         else -> {}
+    }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        SnackbarHost(
+            hostState = snackbarHostState)
     }
 }
