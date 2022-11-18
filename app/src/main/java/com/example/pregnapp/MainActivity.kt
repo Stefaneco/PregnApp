@@ -3,41 +3,45 @@ package com.example.pregnapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.pregnapp.ui.theme.PregnAppTheme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.pregnapp.auth.login.LoginScreen
+import com.example.pregnapp.auth.splash.SplashScreen
+import com.example.pregnapp.auth.register.RegisterScreen
+import com.example.pregnapp.profile.ProfileScreen
+import com.example.pregnapp.util.NavigationRoutes
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            PregnAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
+            val navController = rememberNavController()
+            NavHost(navController = navController, startDestination = NavigationRoutes.SPLASH){
+                composable(NavigationRoutes.SPLASH){
+                    SplashScreen(
+                        navController = navController
+                    )
+                }
+
+                composable(NavigationRoutes.LOGIN){
+                    LoginScreen(
+                        navController = navController
+                    )
+                }
+
+                composable(NavigationRoutes.REGISTER){
+                    RegisterScreen(
+                        navController = navController
+                    )
+                }
+
+                composable(NavigationRoutes.PROFILE){
+                    ProfileScreen()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    PregnAppTheme {
-        Greeting("Android")
     }
 }
